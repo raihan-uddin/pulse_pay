@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\Auth\ApiAuthController;
 use App\Http\Controllers\API\Merchant\MerchantController;
 use App\Http\Controllers\API\TransactionFeeController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,15 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::post('/login', [ApiAuthController::class, 'login']);
     Route::post('/login-merchant', [ApiAuthController::class, 'merchantLogin']);
 
-    Route::group(['prefix' => 'merchant', 'middleware' => ['auth:api', 'merchant']], function () {
-        Route::controller(MerchantController::class)->group(function () {
-            Route::get('/balance', 'checkBalance');
-            Route::get('/transfer-money', 'moneyTransfer');
-            Route::get('/transfer-money', 'moneyTransfer');
+    Route::group(['prefix' => 'merchant', 'middleware' => ['merchant']], function () {
+        Route::middleware('auth:api')->group(function () {
+            Route::controller(MerchantController::class)->group(function () {
+                Route::get('/balance', 'checkBalance');
+                Route::get('/transfer-money', 'moneyTransfer');
+                Route::get('/transfer-money', 'moneyTransfer');
+            });
+
+            Route::get('/search-customer', [UserController::class, 'searchCustomer']);
         });
     });
 

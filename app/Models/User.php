@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -105,6 +106,17 @@ class User extends Authenticatable
                 throw $e;
             }
         });
+    }
+
+    public static function searchCustomer($phone): ?User
+    {
+        $user = self::where('phone_number', $phone)
+            ->where('country_code', Auth::user()->country_code)
+            ->where('status', 'active')
+            ->select(DB::raw("CONCAT(first_name, ' ', last_name) as full_name"), 'id', 'username', 'currency_code', 'country_code')
+            ->first();
+
+        return $user;
     }
 
     public function transactionFees()
