@@ -26,7 +26,7 @@ return new class extends Migration
             $table->decimal('point', 20, 8)->default(0);
             $table->decimal('commission', 20, 8)->default(0);
             $table->enum('status', config('status.account_status'))->default('pending_verification');
-            $table->string('password');
+            $table->string('password', 300);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('referral_code')->nullable();
             $table->date('dob')->nullable();

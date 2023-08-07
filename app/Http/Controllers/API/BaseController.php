@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class BaseController extends Controller
 {
+    use ValidatesRequests;
+
     /**
      * API version for content negotiation.
      *
@@ -39,11 +43,9 @@ class BaseController extends Controller
     /**
      * Create a JSON response for errors.
      *
-     * @param  string  $message
-     * @param  int  $statusCode
-     * @param  int|null  $errorCode
+     * @param  null  $attributeName
      */
-    protected function sendError($message, $statusCode = 400, $errorCode = null): JsonResponse
+    protected function sendError(array|string $message, int $statusCode = 400, int $errorCode = null, $attributeName = null): JsonResponse
     {
         $response = [
             'success' => false,
@@ -53,6 +55,10 @@ class BaseController extends Controller
 
         if ($errorCode !== null) {
             $response['error_code'] = $errorCode;
+        }
+
+        if ($attributeName !== null) {
+            $response['attribute'] = $attributeName;
         }
 
         return response()->json($response, $statusCode);
@@ -111,5 +117,15 @@ class BaseController extends Controller
         $response->setData($data);
 
         return $response;
+    }
+
+    protected function handleValidationException(ValidationException $exception, $format = null)
+    {
+        $validator = $exception->validator;
+
+        $errors = $validator->errors()->toArray();
+
+        // Call the sendError method with the errors array
+        return $this->sendError($errors, 422);
     }
 }

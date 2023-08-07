@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\Auth\ApiAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/register', [RegisterController::class, 'register']);
-Route::post('login', [RegisterController::class, 'login']);
+Route::group(['middleware' => ['cors', 'json.response']], function () {
+    Route::post('/register', [ApiAuthController::class, 'register']);
+    Route::post('/login', [ApiAuthController::class, 'login']);
+    Route::post('/login-marchant', [ApiAuthController::class, 'merchantLogin']);
+});
 
 Route::get('/', function (Request $request) {
     return 'Hello World';
@@ -24,6 +27,8 @@ Route::get('/', function (Request $request) {
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('products', 'API\ProductController');
+    Route::post('/logout', [ApiAuthController::class, 'logout']);
+
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

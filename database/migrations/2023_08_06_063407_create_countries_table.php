@@ -16,9 +16,14 @@ return new class extends Migration
             $table->char('iso', 2);
             $table->string('name', 80);
             $table->char('iso3', 3)->nullable();
+            $table->char('currency_code', 3);
+            $table->string('currency_name');
+            $table->decimal('exchange_rate', 20, 8);
             $table->smallinteger('numcode')->nullable();
+            $table->string('phonecode');
             $table->string('flag')->nullable();
-            $table->integer('phonecode');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

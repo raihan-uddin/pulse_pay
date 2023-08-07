@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $password = Hash::make('123456789');
+        $password = Hash::make('123456');
 
         User::insert([
             [
@@ -49,7 +49,7 @@ class UserSeeder extends Seeder
                 'status' => 'active',
             ],
             [
-                'name' => 'Dominic',
+                'first_name' => 'Dominic',
                 'last_name' => 'Gomes',
                 'email' => 'dominic@pulsetechltde.com',
                 'country_code' => 'OM',
