@@ -51,6 +51,8 @@ class Kernel extends HttpKernel
         'cors' => [
             'App\Http\Middleware\Cors',
         ],
+        'merchant' => [\App\Http\Middleware\IsMerchant::class],
+
     ];
 
     /**
