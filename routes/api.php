@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\ApiAuthController;
 use App\Http\Controllers\API\Merchant\MerchantController;
+use App\Http\Controllers\API\TransactionFeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,12 +27,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::controller(MerchantController::class)->group(function () {
             Route::get('/balance', 'checkBalance');
             Route::get('/transfer-money', 'moneyTransfer');
+            Route::get('/transfer-money', 'moneyTransfer');
         });
     });
 
-
     Route::middleware('auth:api')->group(function () {
-        Route::resource('products', 'API\ProductController');
+        Route::get('/transaction-fees', [TransactionFeeController::class, 'fees']);
         Route::post('/logout', [ApiAuthController::class, 'logout']);
     });
 });

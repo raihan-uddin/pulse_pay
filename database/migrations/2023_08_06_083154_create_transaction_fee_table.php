@@ -20,8 +20,9 @@ return new class extends Migration
             $table->decimal('percentage', 20, 8)->default(0)->comment("The fee percentage (if applicable). If the fee_type is 'Fixed' this column will be 0.");
             $table->decimal('min_amount', 20, 8)->default(0)->comment('Minimum transaction amount to apply the fee (optional)');
             $table->decimal('max_amount', 20, 8)->default(0)->comment('Maximum transaction amount to apply the fee (optional)');
-            $table->decimal('description', 20, 8)->default(0);
+            $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

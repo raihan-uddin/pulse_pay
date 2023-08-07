@@ -24,6 +24,8 @@ class CountriesSeeder extends Seeder
                 'currency_code' => 'USD',
                 'currency_name' => 'US Dollar',
                 'exchange_Rate' => '1.0000',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'iso' => 'BD',
@@ -34,6 +36,8 @@ class CountriesSeeder extends Seeder
                 'currency_code' => 'BDT',
                 'currency_name' => 'Bangladeshi Taka',
                 'exchange_Rate' => 108.18,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'iso' => 'OM',
@@ -44,6 +48,8 @@ class CountriesSeeder extends Seeder
                 'currency_code' => 'OMR',
                 'currency_name' => 'Omani Rial',
                 'exchange_Rate' => 0.1020,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'iso' => 'AE',
@@ -54,6 +60,8 @@ class CountriesSeeder extends Seeder
                 'currency_code' => 'AED',
                 'currency_name' => 'United Arab Emirates Dirham',
                 'exchange_Rate' => 3.6720,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

@@ -31,6 +31,8 @@ class UserSeeder extends Seeder
                 'balance' => 10000000000,
                 'point' => 0,
                 'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'first_name' => 'Rasel',
@@ -47,6 +49,8 @@ class UserSeeder extends Seeder
                 'balance' => 50000,
                 'point' => 0,
                 'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'first_name' => 'Dominic',
@@ -63,6 +67,8 @@ class UserSeeder extends Seeder
                 'balance' => 10000,
                 'point' => 0,
                 'status' => 'active',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }
