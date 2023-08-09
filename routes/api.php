@@ -28,8 +28,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::middleware('auth:api')->group(function () {
             Route::controller(MerchantController::class)->group(function () {
                 Route::get('/balance', 'checkBalance');
-                Route::get('/transfer-money', 'moneyTransfer');
-                Route::get('/transfer-money', 'moneyTransfer');
+                Route::post('/transfer-money', 'moneyTransfer');
             });
 
             Route::get('/search-customer', [UserController::class, 'searchCustomer']);

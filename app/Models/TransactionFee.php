@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransactionFee extends Model
 {
@@ -13,7 +14,6 @@ class TransactionFee extends Model
 
     protected $table = 'transaction_fee';
     protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
-
 
 
     // Other transaction fee model code...

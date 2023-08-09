@@ -40,6 +40,8 @@ class ApiAuthController extends BaseController
 
             $success['token'] = $user->createToken('PulsePay')->accessToken;
             $success['name'] = sprintf('%s %s', $user->first_name, $user->last_name);
+            $success['account_type'] =  $user->account_type;
+            $success['country_code'] =  $user->country_code;
 
             return $this->sendResponse($success, 'User registered successfully.');
         } catch (Exception $e) {
@@ -74,6 +76,8 @@ class ApiAuthController extends BaseController
                     'name' => sprintf('%s %s', $user->first_name, $user->last_name),
                     'account_type' => $user->account_type,
                     'currency_code' => $user->currency_code,
+                    'country_code' => $user->country_code,
+                    'point' => $user->point,
                 ];
 
                 return $this->sendResponse($response, 'User login successfully.');
@@ -115,6 +119,8 @@ class ApiAuthController extends BaseController
                     'name' => sprintf('%s %s', $user->first_name, $user->last_name),
                     'account_type' => $user->account_type,
                     'currency_code' => $user->currency_code,
+                    'country_code' => $user->country_code,
+                    'point' => $user->point,
                 ];
 
                 return $this->sendResponse($response, 'Merchant login successfully.');
@@ -125,7 +131,7 @@ class ApiAuthController extends BaseController
 
             }
         } else {
-            $response = ['message' => 'User does not exist'];
+            $response = ['message' => 'Merchant does not exist'];
 
             return $this->sendError($response, 422);
         }
