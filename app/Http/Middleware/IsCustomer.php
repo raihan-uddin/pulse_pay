@@ -16,7 +16,7 @@ class IsCustomer
     public function handle(Request $request, Closure $next): Response
     {
         // Check if the user is authenticated &&  Check if the user's account type is "customer"
-        if (auth()->check() && auth()->user()->account_type === 'user') {
+        if (auth()->check() && auth()->user()->account_type === 'customer') {
             return $next($request);
         }
         $message = ['message' => 'Permission Denied'];

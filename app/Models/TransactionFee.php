@@ -24,7 +24,6 @@ class TransactionFee extends Model
 
         // Get the user's currency code
         $userCurrency = $user->currency_code;
-        info($userCurrency);
 
         return static::whereCurrencyCode($userCurrency)->get();
     }

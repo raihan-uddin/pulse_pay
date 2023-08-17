@@ -26,7 +26,7 @@ class ApiAuthController extends BaseController
                 'last_name' => 'required|string|max:255',
                 'phonecode' => 'required|string|max:10',
                 'phone_number' => 'required|string|max:20|unique:users',
-                'account_type' => 'required|in:merchant,user',
+                'account_type' => 'required|in:merchant,customer',
                 'email' => 'email|unique:users', // 'email' must be in a valid format and unique in the 'users' table
                 'password' => 'required',
                 'c_password' => 'required|same:password',
