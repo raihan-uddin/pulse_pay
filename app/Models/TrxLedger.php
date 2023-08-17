@@ -13,7 +13,7 @@ class TrxLedger extends Model
 
 
     public static function insertTrxLedger(
-        $user_id, $transaction_type, $cr_amount, $dr_amount,
+        $trx_no, $user_id, $transaction_type, $cr_amount, $dr_amount,
         $source_currency_code, $target_currency_code, $exchange_rate,
         $transaction_fee, $commission, $point, $vat, $description, $transaction_method
     ): ?TrxLedger
@@ -22,6 +22,7 @@ class TrxLedger extends Model
             // Create a new transaction entry in the ledger table
             $transaction = new TrxLedger();
             $transaction->user_id = $user_id;
+            $transaction->trx_no = $trx_no;
             $transaction->transaction_type = $transaction_type;
             $transaction->cr_amount = $cr_amount;
             $transaction->dr_amount = $dr_amount;

@@ -71,8 +71,9 @@ class MerchantController extends BaseController
             // Deduct the total amount (amount + transfer fee) from the sender's balance
             $user->balance -= $totalAmountToDeduct;
             if ($user->save()) {
+                $hashedValue = strtoupper(substr(md5(uniqid(mt_rand(), true) . "!salt!"), 0, 16));
 
-                $transaction = TrxLedger::insertTrxLedger(
+                $transaction = TrxLedger::insertTrxLedger($hashedValue,
                     $user->id, "transfer", 0, $amount,
                     $user->currency_code, $recipient->currency_code, $exchange_rate,
                     $fee, 0, 0, 0, 'Send Money', "online"
@@ -82,7 +83,7 @@ class MerchantController extends BaseController
                 // Add the amount to the recipient's balance
                 $recipient->balance += $amount;
                 if ($recipient->save()) {
-                    $transaction = TrxLedger::insertTrxLedger(
+                    $transaction = TrxLedger::insertTrxLedger($hashedValue,
                         $recipient->id, "received", $amount, 0,
                         $user->currency_code, $recipient->currency_code, $exchange_rate,
                         $fee, 0, 0, 0, 'Received Money', "online"
@@ -92,8 +93,16 @@ class MerchantController extends BaseController
             }
 
             DB::commit();
+            $data = [
+                'trx_no' => $hashedValue,
+                'amount' => $amount,
+                'fee' => $fee,
+                'currency_code' => $user->currency_code,
+                'exchange_rate' => $exchange_rate,
+                'current_balance' => number_format($user->balance, 4),
+            ];
 
-            return $this->sendResponse("Money send successful.");
+            return $this->sendResponse("Money send successful.", $data);
         } catch (\Exception $e) {
             DB::rollback();
             return $this->sendError("Server error! Please try again.");

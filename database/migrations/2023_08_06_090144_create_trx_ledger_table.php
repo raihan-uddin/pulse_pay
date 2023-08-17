@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('trx_ledger', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('trx_no');
             $table->foreign('user_id')->references('id')->on('users');
             $table->enum('transaction_type', config('types.transaction_type'));
             $table->decimal('cr_amount', 20, 8)->default(0);
