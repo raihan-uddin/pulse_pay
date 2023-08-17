@@ -40,8 +40,8 @@ class ApiAuthController extends BaseController
 
             $success['token'] = $user->createToken('PulsePay')->accessToken;
             $success['name'] = sprintf('%s %s', $user->first_name, $user->last_name);
-            $success['account_type'] =  $user->account_type;
-            $success['country_code'] =  $user->country_code;
+            $success['account_type'] = $user->account_type;
+            $success['country_code'] = $user->country_code;
 
             return $this->sendResponse($success, 'User registered successfully.');
         } catch (Exception $e) {

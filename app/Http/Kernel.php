@@ -52,6 +52,7 @@ class Kernel extends HttpKernel
             'App\Http\Middleware\Cors',
         ],
         'merchant' => [\App\Http\Middleware\IsMerchant::class],
+        'customer' => [\App\Http\Middleware\IsCustomer::class],
 
     ];
 

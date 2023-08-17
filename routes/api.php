@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Auth\ApiAuthController;
+use App\Http\Controllers\API\Customer\CustomerController;
 use App\Http\Controllers\API\Merchant\MerchantController;
 use App\Http\Controllers\API\TransactionFeeController;
 use App\Http\Controllers\API\UserController;
@@ -27,6 +28,17 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     Route::group(['prefix' => 'merchant', 'middleware' => ['merchant']], function () {
         Route::middleware('auth:api')->group(function () {
             Route::controller(MerchantController::class)->group(function () {
+                Route::get('/balance', 'checkBalance');
+                Route::post('/transfer-money', 'moneyTransfer');
+            });
+
+            Route::get('/search-customer', [UserController::class, 'searchCustomer']);
+        });
+    });
+
+    Route::group(['prefix' => 'customer', 'middleware' => ['customer']], function () {
+        Route::middleware('auth:api')->group(function () {
+            Route::controller(CustomerController::class)->group(function () {
                 Route::get('/balance', 'checkBalance');
                 Route::post('/transfer-money', 'moneyTransfer');
             });
